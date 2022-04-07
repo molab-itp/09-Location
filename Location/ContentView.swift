@@ -23,21 +23,20 @@ struct ContentView: View {
   
   var body: some View {
     VStack {
-      let locations = [userLoc()]
       ZStack {
-        Map(coordinateRegion: $locationManager.region, annotationItems: locations) { location in
+        Map(coordinateRegion: $locationManager.region, annotationItems: locations()) { location in
           MapMarker(coordinate: location.coordinate)
         }
         .ignoresSafeArea()
-        //Circle()
-        //  .fill(.blue)
-        //  .opacity(0.3)
-        //  .frame(width: 32, height: 32)
+        Circle()
+          .fill(.blue)
+          .opacity(0.3)
+          .frame(width: 32, height: 32)
         VStack {
           Spacer()
           HStack {
             Spacer()
-            Button(action: homeAction ) {
+            Button(action: centerUserLocationAction ) {
               Image(systemName: "rectangle")
             }
             .padding()
@@ -45,27 +44,29 @@ struct ContentView: View {
             .foregroundColor(.white)
             .font(.title)
             .clipShape(Circle())
-//            .padding(.trailing)
           }
         }
         VStack {
           Spacer()
           // Slider(value: $locationManager.delta, in: 0.0005...0.05)
           // Text("location status: \(locationManager.statusString)")
-          Text("latitude: \(locationManager.userLatitude)")
-          Text("longitude: \(locationManager.userLongitude)")
+          Text("latitude: \(locationManager.centerLatitude)")
+          Text("longitude: \(locationManager.centerLongitude)")
         }
       }
     }
   }
   
-  func homeAction() {
-    print("home")
+  func centerUserLocationAction() {
+    locationManager.centerUserLocationAction()
   }
   
-  func userLoc() -> Location {
-    let center = locationManager.region.center;
-    return Location(id: UUID(), latitude: center.latitude, longitude: center.longitude)
+  func locations() -> [Location] {
+    if let last = locationManager.lastLocation {
+      let center = last.coordinate
+      return [Location(id: UUID(), latitude: center.latitude, longitude: center.longitude)]
+    }
+    return []
   }
 }
 

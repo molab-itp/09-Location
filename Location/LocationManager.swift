@@ -16,7 +16,8 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
   @Published var lastLocation: CLLocation?
   @Published var region:MKCoordinateRegion
   @Published var delta: Double
-    
+  var regionInited = false
+  
   override init() {
     delta = 0.005
     region = MKCoordinateRegion()
@@ -33,6 +34,14 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
   
   var userLongitude: String {
     return "\(lastLocation?.coordinate.longitude ?? 0)"
+  }
+
+  var centerLatitude: String {
+    return "\(region.center.latitude)"
+  }
+  
+  var centerLongitude: String {
+    return "\(region.center.longitude)"
   }
 
   var statusString: String {
@@ -57,12 +66,18 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
   func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
     guard let location = locations.last else { return }
     lastLocation = location
-    let lat = lastLocation?.coordinate.latitude ?? 0
-    let long = lastLocation?.coordinate.longitude ?? 0
-    let loc = CLLocationCoordinate2D(latitude: lat, longitude: long)
     // let delta = 0.005
-    region = MKCoordinateRegion(center: loc, span: MKCoordinateSpan(latitudeDelta: delta, longitudeDelta: delta))
+    if !regionInited {
+      regionInited = true
+      centerUserLocationAction()
+    }
     print("locationManager didUpdateLocations", location)
   }
   
+  func centerUserLocationAction() {
+    let lat = lastLocation?.coordinate.latitude ?? 0
+    let long = lastLocation?.coordinate.longitude ?? 0
+    let loc = CLLocationCoordinate2D(latitude: lat, longitude: long)
+    region = MKCoordinateRegion(center: loc, span: MKCoordinateSpan(latitudeDelta: delta, longitudeDelta: delta))
+  }
 }
