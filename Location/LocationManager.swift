@@ -37,11 +37,13 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
   }
 
   var centerLatitude: String {
-    return "\(region.center.latitude)"
+    return String(format: "%.6f", region.center.latitude)
+    // return "\(region.center.latitude)"
   }
   
   var centerLongitude: String {
-    return "\(region.center.longitude)"
+    return String(format: "%.6f", region.center.longitude)
+    // return "\(region.center.longitude)"
   }
 
   var statusString: String {
@@ -69,12 +71,12 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     // let delta = 0.005
     if !regionInited {
       regionInited = true
-      centerUserLocationAction()
+      centerUserLocation()
     }
     print("locationManager didUpdateLocations", location)
   }
   
-  func centerUserLocationAction() {
+  func centerUserLocation() {
     let lat = lastLocation?.coordinate.latitude ?? 0
     let long = lastLocation?.coordinate.longitude ?? 0
     let loc = CLLocationCoordinate2D(latitude: lat, longitude: long)

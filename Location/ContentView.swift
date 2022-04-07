@@ -37,7 +37,7 @@ struct ContentView: View {
           HStack {
             Spacer()
             Button(action: centerUserLocationAction ) {
-              Image(systemName: "rectangle")
+              Image(systemName: "star")
             }
             .padding()
             .background(.black.opacity(0.75))
@@ -58,7 +58,7 @@ struct ContentView: View {
   }
   
   func centerUserLocationAction() {
-    locationManager.centerUserLocationAction()
+    locationManager.centerUserLocation()
   }
   
   func locations() -> [Location] {
