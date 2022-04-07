@@ -20,13 +20,13 @@ struct Location: Identifiable, Codable, Equatable {
 struct ContentView: View {
   
   @StateObject var locationManager = LocationManager()
-
+  
   var body: some View {
     VStack {
       let locations = [userLoc()]
       ZStack {
         Map(coordinateRegion: $locationManager.region, annotationItems: locations) { location in
-          MapMarker(coordinate: CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude))
+          MapMarker(coordinate: location.coordinate)
         }
         .ignoresSafeArea()
         //Circle()
@@ -35,8 +35,23 @@ struct ContentView: View {
         //  .frame(width: 32, height: 32)
         VStack {
           Spacer()
-          Slider(value: $locationManager.delta, in: 0.0005...0.05)
-          Text("location status: \(locationManager.statusString)")
+          HStack {
+            Spacer()
+            Button(action: homeAction ) {
+              Image(systemName: "rectangle")
+            }
+            .padding()
+            .background(.black.opacity(0.75))
+            .foregroundColor(.white)
+            .font(.title)
+            .clipShape(Circle())
+//            .padding(.trailing)
+          }
+        }
+        VStack {
+          Spacer()
+          // Slider(value: $locationManager.delta, in: 0.0005...0.05)
+          // Text("location status: \(locationManager.statusString)")
           Text("latitude: \(locationManager.userLatitude)")
           Text("longitude: \(locationManager.userLongitude)")
         }
@@ -44,8 +59,13 @@ struct ContentView: View {
     }
   }
   
+  func homeAction() {
+    print("home")
+  }
+  
   func userLoc() -> Location {
-    return Location(id: UUID(), latitude: locationManager.region.center.latitude, longitude: locationManager.region.center.longitude)
+    let center = locationManager.region.center;
+    return Location(id: UUID(), latitude: center.latitude, longitude: center.longitude)
   }
 }
 
