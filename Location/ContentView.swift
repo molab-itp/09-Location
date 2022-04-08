@@ -22,43 +22,43 @@ struct ContentView: View {
   @StateObject var locationManager = LocationManager()
   
   var body: some View {
-    VStack {
-      ZStack {
-        Map(coordinateRegion: $locationManager.region, annotationItems: locations()) { location in
-          MapMarker(coordinate: location.coordinate)
-        }
-        .ignoresSafeArea()
-        Circle()
-          .fill(.blue)
-          .opacity(0.3)
-          .frame(width: 32, height: 32)
-        VStack {
+    ZStack {
+      Map(coordinateRegion: $locationManager.region, annotationItems: locations()) { location in
+        MapMarker(coordinate: location.coordinate)
+      }
+      .ignoresSafeArea()
+      Circle()
+        .fill(.blue)
+        .opacity(0.3)
+        .frame(width: 32, height: 32)
+      VStack {
+        Spacer()
+        HStack {
           Spacer()
-          HStack {
-            Spacer()
-            Button(action: centerUserLocationAction ) {
-              Image(systemName: "star")
-            }
-            .padding()
-            .background(.black.opacity(0.75))
-            .foregroundColor(.white)
-            .font(.title)
-            .clipShape(Circle())
+          Button(action: centerUserLocationAction ) {
+            Image(systemName: "star")
           }
+          .padding()
+          .background(.black.opacity(0.75))
+          .foregroundColor(.white)
+          .font(.title)
+          .clipShape(Circle())
         }
-        VStack {
-          Spacer()
-          // Slider(value: $locationManager.delta, in: 0.0005...0.05)
-          // Text("location status: \(locationManager.statusString)")
-          Text("latitude: \(locationManager.centerLatitude)")
-          Text("longitude: \(locationManager.centerLongitude)")
-        }
+      }
+      VStack {
+        Spacer()
+        // Slider(value: $locationManager.delta, in: 0.0005...0.05)
+        // Text("location status: \(locationManager.statusString)")
+        Text("latitude: \(locationManager.centerLatitude)")
+        Text("longitude: \(locationManager.centerLongitude)")
       }
     }
   }
   
   func centerUserLocationAction() {
-    locationManager.centerUserLocation()
+    withAnimation {
+      locationManager.centerUserLocation()
+    }
   }
   
   func locations() -> [Location] {
@@ -75,4 +75,5 @@ struct ContentView_Previews: PreviewProvider {
     ContentView()
   }
 }
+
 
