@@ -51,8 +51,8 @@ struct ContentView: View {
         Spacer()
         // Slider(value: $locationManager.delta, in: 0.0005...0.05)
         // Text("location status: \(locationManager.statusString)")
-        Text("latitude: \(locationManager.centerLatitude)")
-        Text("longitude: \(locationManager.centerLongitude)")
+        Text("lat: \(locationManager.centerLatitude)")
+        Text("lon: \(locationManager.centerLongitude)")
       }
     }
   }
