@@ -19,7 +19,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
   var regionInited = false
   
   override init() {
-    delta = 0.005
+    delta = 0.001
     region = MKCoordinateRegion()
     super.init()
     locationManager.delegate = self

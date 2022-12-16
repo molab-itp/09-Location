@@ -23,7 +23,9 @@ struct ContentView: View {
   
   var body: some View {
     ZStack {
-      Map(coordinateRegion: $locationManager.region, annotationItems: locations()) { location in
+      Map(coordinateRegion: $locationManager.region,
+          annotationItems: locations())
+      { location in
         MapMarker(coordinate: location.coordinate)
       }
       .ignoresSafeArea()
