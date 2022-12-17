@@ -37,12 +37,12 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
   }
 
   var centerLatitude: String {
-    return String(format: "%3.6f", region.center.latitude)
+    return String(format: "%+.6f", region.center.latitude)
     // return "\(region.center.latitude)"
   }
   
   var centerLongitude: String {
-    return String(format: "%3.6f", region.center.longitude)
+    return String(format: "%+.6f", region.center.longitude)
     // return "\(region.center.longitude)"
   }
 
