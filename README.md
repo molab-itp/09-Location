@@ -2,6 +2,8 @@
 
 Getting and displaying the user location using MapKit
 
+  - in Simulator > Location > Features > Custom Location
+
 ## Resources
 
 https://stackoverflow.com/questions/57681885/how-to-get-current-location-using-swiftui-without-viewcontrollers
