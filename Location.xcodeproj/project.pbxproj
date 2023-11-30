@@ -57,11 +57,11 @@
 		AB3A416027FCE32300B13CFF /* Location */ = {
 			isa = PBXGroup;
 			children = (
-				AB3A416F27FCE50100B13CFF /* Info.plist */,
 				AB3A416127FCE32300B13CFF /* LocationApp.swift */,
 				AB3A416327FCE32300B13CFF /* ContentView.swift */,
 				AB97C93727FDE77000BD96E2 /* LocationManager.swift */,
 				AB3A416527FCE32400B13CFF /* Assets.xcassets */,
+				AB3A416F27FCE50100B13CFF /* Info.plist */,
 				AB3A416727FCE32400B13CFF /* Preview Content */,
 			);
 			path = Location;
